@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Controle Financeiro Templo Agaranto Guarulhos</title>
+<style>
+:root{--bg:#f3f5f8;--card:#fff;--ink:#16202e;--mut:#64708a;--line:#e2e7ef;--ent:#128f6a;--sai:#d9622b;--sal:#2f5fd0;--neg:#c23a3a;--chip:#e8edf6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1622;--card:#182233;--ink:#e8edf6;--mut:#93a0b8;--line:#263449;--ent:#34c79a;--sai:#f08a57;--sal:#7ea2ff;--neg:#ef6b6b;--chip:#22304a}}
+:root[data-theme="dark"]{--bg:#0f1622;--card:#182233;--ink:#e8edf6;--mut:#93a0b8;--line:#263449;--ent:#34c79a;--sai:#f08a57;--sal:#7ea2ff;--neg:#ef6b6b;--chip:#22304a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:24px;margin:0;letter-spacing:-.01em}
+h2{font-size:15px;margin:0 0 2px}
+.sub{color:var(--mut);font-size:13px;margin:0}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.bar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.chip{border:1px solid transparent;background:var(--chip);color:var(--ink);border-radius:999px;padding:5px 11px;font-size:13px;cursor:pointer}
+.chip.on{background:var(--sal);color:#fff}
+select,input{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit;font-size:13px}
+.clr{margin-left:auto;background:none;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit;font-size:13px}
+.grid{display:grid;gap:14px;margin-bottom:14px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.two{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.k{font-size:13px;color:var(--mut)}
+.v{font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-.02em}
+.n{font-size:12px;color:var(--mut)}
+.pos{color:var(--ent)}.neg{color:var(--neg)}
+svg{width:100%;height:auto;display:block;margin-top:8px}
+.g{stroke:var(--line);stroke-width:1}.a{fill:var(--mut);font-size:11px}
+.e{fill:var(--ent)}.s{fill:var(--sai)}.hit{fill:transparent;cursor:pointer}
+.rk{display:grid;grid-template-columns:minmax(120px,1.2fr) 2fr auto;gap:8px;align-items:center;margin-top:10px;font-size:13px;cursor:pointer}
+.trk{background:var(--chip);border-radius:6px;height:12px}.fl{height:12px;border-radius:6px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{cursor:pointer;color:var(--mut);font-weight:600}
+td.r,th.r{text-align:right}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px}
+.tag.E{background:color-mix(in srgb,var(--ent) 18%,transparent);color:var(--ent)}
+.tag.S{background:color-mix(in srgb,var(--sai) 18%,transparent);color:var(--sai)}
+.na{color:var(--mut);font-style:italic}
+#tip{position:fixed;pointer-events:none;background:#16202e;color:#fff;font-size:12px;padding:6px 9px;border-radius:6px;display:none;z-index:9;white-space:pre}
+.pb{height:10px;background:var(--chip);border-radius:6px;margin:10px 0 6px}.pf{height:10px;border-radius:6px;background:var(--sal)}
+</style>
+</head>
+<body>
+<main>
+<div class="top">
+ <div><h1>Controle Financeiro Templo Agaranto Guarulhos</h1><p class="sub" id="per"></p></div>
+ <p class="sub">Fonte: Controle_Financeiro.xlsx · valores em R$</p>
+</div>
+
+<div class="bar" id="bar">
+ <span id="chips" style="display:contents"></span>
+ <select id="tp" aria-label="Tipo"><option value="">Entradas e saídas</option><option>Entrada</option><option>Saída</option></select>
+ <select id="ct" aria-label="Categoria"></select>
+ <button class="clr" id="clr">Limpar filtros</button>
+</div>
+
+<div class="grid kpis" id="kpis"></div>
+
+<div class="grid two">
+ <div class="card"><h2>Entradas x Saídas por mês</h2><p class="sub">Clique em um mês para filtrar</p><div id="c1"></div></div>
+ <div class="card"><h2>Saldo acumulado</h2><p class="sub">Soma dos saldos mensais dentro do período selecionado</p><div id="c2"></div></div>
+</div>
+
+<div class="grid two">
+ <div class="card"><h2>Ranking por categoria</h2><p class="sub">Clique em uma categoria para filtrar</p><div id="rk"></div></div>
+ <div class="card"><h2>Maiores contribuintes</h2><p class="sub">Aba “Doações por membros” · responde ao filtro de mês · clique para ver o histórico</p><div id="tc"></div></div>
+</div>
+
+<div class="card" style="margin-bottom:14px"><h2>Conferência: lista de membros x “Doações / Aluguel”</h2><p class="sub">Compara a soma da lista de membros com o valor lançado em cada aba mensal</p><div class="tw"><table><thead><tr><th>Mês</th><th class="r">Soma dos membros</th><th class="r">Lançado na aba</th><th class="r">Diferença</th></tr></thead><tbody id="cf"></tbody></table></div></div>
+
+<div class="card">
+ <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">
+  <div><h2>Lançamentos</h2><p class="sub" id="cnt"></p></div>
+  <input id="q" type="search" placeholder="Pesquisar categoria ou mês">
+ </div>
+ <div class="tw"><table><thead><tr><th data-k="m">Mês</th><th data-k="c">Categoria</th><th data-k="t">Tipo</th><th class="r" data-k="v">Valor</th></tr></thead><tbody id="tb"></tbody></table></div>
+</div>
+<div class="card" style="margin-top:14px">
+ <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">
+  <div><h2>Histórico de doações por membro</h2><p class="sub" id="cnt2"></p></div>
+  <input id="q2" type="search" placeholder="Pesquisar iniciais">
+ </div>
+ <div class="tw" style="max-height:420px;overflow-y:auto"><table><thead><tr><th>Mês</th><th>Membro</th><th class="r">Valor</th></tr></thead><tbody id="tm"></tbody></table></div>
+</div>
+<p class="sub" style="margin-top:12px">Out/26 é um mês em andamento, e os valores podem mudar. Células vazias na planilha (Cantina em Jun/26 e Set/26; Água, Luz e IPTU em Jun/26) aparecem como “não informado” e entram como zero nas somas. Na lista de membros, os nomes foram substituídos por iniciais (quando duas pessoas têm a mesma inicial, há um número: “J. #1”, “J. #2”). A soma da lista confere com “Doações / Aluguel” em todos os 12 meses. As linhas “Santo André” e “Cartão” de Out/25 e Nov/25 estão sem valores e não foram incluídas.</p>
+</main>
+<div id="tip"></div>
+<script>
+// ===== DADOS (extraídos da planilha; para atualizar, edite estes blocos) =====
+const M=[['2025-10','Out/25'],['2025-11','Nov/25'],['2025-12','Dez/25'],['2026-01','Jan/26'],['2026-02','Fev/26'],['2026-03','Mar/26'],['2026-04','Abr/26'],['2026-05','Mai/26'],['2026-06','Jun/26'],['2026-07','Jul/26'],['2026-08','Ago/26'],['2026-09','Set/26'],['2026-10','Out/26']];
+const C={
+ 'Cantina / Loja / Rifa':['Entrada',[679.35,533,150,810,100,76,185,212,null,857,814,null,628.5]],
+ 'Doações / Aluguel':['Entrada',[698,770,1300,823.3,1105,835,1239,1240,960,870,839,1239,720]],
+ 'Água, Luz e IPTU (Guarulhos)':['Saída',[148.16,95.2,81.08,103.32,162.22,192.78,146.01,194.93,null,176.54,163.65,146.14,178.16]],
+ 'Aluguel (Guarulhos)':['Saída',[1169,1169,1169,1169,1169,1239,1239,1239,1239,1239,1239,1239,1239]]};
+const MB=[[0,"J.V.",50],[0,"F.",50],[0,"J. #2",50],[0,"R.",50],[0,"I.",100],[0,"N. #2",70],[0,"E.",50],[0,"H.",80],[0,"L. #1",100],[0,"M. #4",20],[0,"D. #2",78],[1,"S. #2",100],[1,"J. #1",100],[1,"H.",80],[1,"F.A.",40],[1,"N. #2",100],[1,"J. #2",50],[1,"I.",100],[1,"D. #2",100],[1,"M. #5",100],[2,"I.",100],[2,"H.",80],[2,"N. #2",100],[2,"A.",70],[2,"R.M.",50],[2,"D. #2",100],[2,"J. #2",70],[2,"J. #1",100],[2,"P.",100],[2,"M. #5",100],[2,"S. #2",100],[2,"R.",50],[2,"S. #3",250],[2,"F.A.",30],[3,"N. #2",80],[3,"S. #3",150],[3,"I.",100],[3,"M. #2",40],[3,"R.",50],[3,"H.",80],[3,"S. #1",323.3],[4,"N. #2",75],[4,"V.",50],[4,"H.",70],[4,"I.",100],[4,"D. #2",100],[4,"L. #2",40],[4,"J. #2",30],[4,"M. #1",640],[5,"D. #2",100],[5,"V.",100],[5,"H.",80],[5,"R.",70],[5,"I.",100],[5,"N. #2",100],[5,"F.A.",20],[5,"S. #3",235],[5,"G.",30],[6,"V.",100],[6,"H.",70],[6,"N. #2",100],[6,"J. #2",50],[6,"E.",50],[6,"I.",100],[6,"R.",70],[6,"L. #1",60],[6,"M. #5",100],[6,"S. #2",100],[6,"J. #1",100],[6,"S. #3",239],[6,"D. #2",100],[7,"D. #2",100],[7,"V.",100],[7,"H.",70],[7,"N. #2",120],[7,"R.",50],[7,"I.",100],[7,"M. #5",100],[7,"J. #1",100],[7,"S. #2",100],[7,"L. #1",100],[7,"J. #2",50],[7,"S. #3",250],[8,"H.",70],[8,"N. #2",100],[8,"F.V.",30],[8,"N. #1",40],[8,"I.",100],[8,"F.A.",50],[8,"V.",100],[8,"S. #2",100],[8,"J. #1",100],[8,"R.",50],[8,"A.P.",100],[8,"J. #2",100],[8,"D. #1",20],[9,"A.P.",100],[9,"R.",50],[9,"J. #1",100],[9,"S. #2",100],[9,"I.",100],[9,"D. #2",100],[9,"N. #2",100],[9,"V.",150],[9,"H.",70],[10,"N. #2",100],[10,"I.",100],[10,"V.",100],[10,"H.",70],[10,"R.",69],[10,"J. #1",100],[10,"S. #2",100],[10,"S. #3",100],[10,"A.P.",100],[11,"R.",100],[11,"A.P.",100],[11,"H.",70],[11,"V.",150],[11,"N. #2",100],[11,"I.",100],[11,"J. #2",100],[11,"M. #5",100],[11,"J. #1",100],[11,"S. #2",100],[11,"P.",100],[11,"M. #3",119],[12,"N. #2",100],[12,"H.",70],[12,"I.",100],[12,"V.",100],[12,"J. #1",100],[12,"S. #2",100],[12,"M. #5",100],[12,"J. #2",50]];
+// ============================================================================
+const D=[];Object.entries(C).forEach(([c,[t,v]])=>v.forEach((x,i)=>D.push({m:i,c,t,v:x})));
+const st={sel:new Set(),cat:'',tp:'',q:'',q2:'',sk:'m',sd:1};
+const $=id=>document.getElementById(id);
+const R=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const sh=v=>Math.abs(v)>=1000?(v/1000).toFixed(1).replace('.',',')+'k':Math.round(v);
+const act=()=>st.sel.size?[...st.sel].sort((a,b)=>a-b):M.map((_,i)=>i);
+const F=()=>D.filter(r=>(!st.sel.size||st.sel.has(r.m))&&(!st.cat||r.c===st.cat)&&(!st.tp||r.t===st.tp));
+const sum=(f,t)=>f.filter(r=>r.t===t).reduce((a,r)=>a+(r.v||0),0);
+const tip=$('tip');
+document.addEventListener('pointermove',e=>{const t=e.target.closest('[data-t]');if(!t){tip.style.display='none';return}tip.textContent=t.dataset.t;tip.style.display='block';tip.style.left=Math.min(e.clientX+12,innerWidth-170)+'px';tip.style.top=(e.clientY+14)+'px'});
+
+$('chips').innerHTML=M.map((m,i)=>`<button class="chip" data-i="${i}">${m[1]}</button>`).join('');
+$('ct').innerHTML='<option value="">Todas as categorias</option>'+Object.keys(C).map(c=>`<option>${c}</option>`).join('');
+$('chips').onclick=e=>{const i=e.target.dataset.i;if(i!=null)tog(+i)};
+function tog(i){st.sel.has(i)?st.sel.delete(i):st.sel.add(i);draw()}
+$('tp').onchange=e=>{st.tp=e.target.value;draw()};
+$('ct').onchange=e=>{st.cat=e.target.value;draw()};
+$('q2').oninput=e=>{st.ex=0;st.q2=e.target.value.toLowerCase();draw()};
+$('q').oninput=e=>{st.q=e.target.value.toLowerCase();draw()};
+$('clr').onclick=()=>{st.sel.clear();st.cat=st.tp=st.q=st.q2='';st.ex=0;$('tp').value=$('ct').value=$('q').value=$('q2').value='';draw()};
+document.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;st.sd=st.sk===k?-st.sd:1;st.sk=k;draw()});
+
+function draw(){
+ const f=F(),ms=act();
+ document.querySelectorAll('.chip').forEach((b,i)=>b.classList.toggle('on',st.sel.has(i)));
+ $('per').textContent=(st.sel.size?M[ms[0]][1]+' a '+M[ms[ms.length-1]][1]:'Out/25 a Out/26')+' · '+ms.length+(ms.length>1?' meses':' mês');
+ // KPIs
+ const e=sum(f,'Entrada'),s=sum(f,'Saída'),sd=e-s;
+ const def=ms.filter(i=>{const g=f.filter(r=>r.m===i);return sum(g,'Entrada')-sum(g,'Saída')<0}).length;
+ const kp=[['Entradas',R(e),'',''],['Saídas',R(s),'',''],['Saldo',R(sd),sd<0?'neg':'pos','Entradas − saídas'],['Cobertura das saídas',s?(e/s*100).toFixed(1).replace('.',',')+'%':'—','','Entradas ÷ saídas'],['Meses no vermelho',def+' de '+ms.length,def?'neg':'pos','Saldo mensal negativo']];
+ $('kpis').innerHTML=kp.map(k=>`<div class="card"><div class="k">${k[0]}</div><div class="v ${k[2]}">${k[1]}</div><div class="n">${k[3]||'&nbsp;'}</div></div>`).join('');
+ // Gráfico 1
+ const W=640,H=250,p={l:42,r:6,t:10,b:26},dt=ms.map(i=>{const g=f.filter(r=>r.m===i);return{i,e:sum(g,'Entrada'),s:sum(g,'Saída')}});
+ const mx=Math.max(1,...dt.flatMap(d=>[d.e,d.s]))*1.1,bw=(W-p.l-p.r)/dt.length,y=v=>p.t+(H-p.t-p.b)*(1-v/mx);
+ let h=`<svg viewBox="0 0 ${W} ${H}">`;
+ for(let k=0;k<=4;k++){const v=mx*k/4;h+=`<line class="g" x1="${p.l}" x2="${W-p.r}" y1="${y(v)}" y2="${y(v)}"/><text class="a" x="${p.l-6}" y="${y(v)+4}" text-anchor="end">${sh(v)}</text>`}
+ dt.forEach((d,j)=>{const x=p.l+j*bw,w=Math.min(18,bw*.34),c=x+bw/2;
+  h+=`<rect class="e" x="${c-w-1}" y="${y(d.e)}" width="${w}" height="${y(0)-y(d.e)}" rx="2"/><rect class="s" x="${c+1}" y="${y(d.s)}" width="${w}" height="${y(0)-y(d.s)}" rx="2"/><text class="a" x="${c}" y="${H-8}" text-anchor="middle">${M[d.i][1].replace('/',' ')}</text><rect class="hit" x="${x}" y="${p.t}" width="${bw}" height="${H-p.t-p.b}" data-t="${M[d.i][1]}\nEntradas: ${R(d.e)}\nSaídas: ${R(d.s)}\nSaldo: ${R(d.e-d.s)}" onclick="tog(${d.i})"/>`});
+ $('c1').innerHTML=h+`</svg><div class="n"><span style="color:var(--ent)">■</span> Entradas &nbsp; <span style="color:var(--sai)">■</span> Saídas</div>`;
+ // Gráfico 2
+ let ac=0;const cu=dt.map(d=>(ac+=d.e-d.s));
+ const lo=Math.min(0,...cu),hi=Math.max(0,...cu),pd=(hi-lo||1)*.1,y2=v=>p.t+(H-p.t-p.b)*(1-(v-lo+pd)/(hi-lo+2*pd)),xx=j=>p.l+bw*j+bw/2;
+ h=`<svg viewBox="0 0 ${W} ${H}">`;
+ for(let k=0;k<=4;k++){const v=lo-pd+(hi-lo+2*pd)*k/4;h+=`<line class="g" x1="${p.l}" x2="${W-p.r}" y1="${y2(v)}" y2="${y2(v)}"/><text class="a" x="${p.l-6}" y="${y2(v)+4}" text-anchor="end">${sh(v)}</text>`}
+ h+=`<line x1="${p.l}" x2="${W-p.r}" y1="${y2(0)}" y2="${y2(0)}" stroke="var(--mut)" stroke-dasharray="4 3"/><polyline fill="none" stroke="var(--sal)" stroke-width="2.5" points="${cu.map((v,j)=>xx(j)+','+y2(v)).join(' ')}"/>`;
+ cu.forEach((v,j)=>h+=`<circle cx="${xx(j)}" cy="${y2(v)}" r="4" fill="${v<0?'var(--neg)':'var(--sal)'}" data-t="${M[dt[j].i][1]}\nAcumulado: ${R(v)}"/><text class="a" x="${xx(j)}" y="${H-8}" text-anchor="middle">${M[dt[j].i][1].replace('/',' ')}</text>`);
+ $('c2').innerHTML=h+'</svg>';
+ // Ranking
+ const tot=Object.entries(C).map(([c,[t]])=>({c,t,v:f.filter(r=>r.c===c).reduce((a,r)=>a+(r.v||0),0)})).filter(r=>(!st.cat||r.c===st.cat)&&(!st.tp||r.t===st.tp)).sort((a,b)=>b.v-a.v),m2=Math.max(1,...tot.map(r=>r.v));
+ $('rk').innerHTML=tot.map(r=>`<div class="rk" onclick="st.cat=st.cat==='${r.c}'?'':'${r.c}';$('ct').value=st.cat;draw()"><span>${r.c}</span><div class="trk"><div class="fl" style="width:${r.v/m2*100}%;background:var(--${r.t==='Entrada'?'ent':'sai'})"></div></div><b>${R(r.v)}</b></div>`).join('');
+ // Membros
+ const mm=MB.filter(r=>!st.sel.size||st.sel.has(r[0])),tn={};
+ mm.forEach(r=>{(tn[r[1]]??={v:0,s:new Set()});tn[r[1]].v+=r[2];tn[r[1]].s.add(r[0])});
+ const tc=Object.entries(tn).sort((a,b)=>b[1].v-a[1].v).slice(0,10),m3=Math.max(1,...tc.map(r=>r[1].v));
+ $('tc').innerHTML=tc.map(([n,o])=>`<div class="rk" data-t="${o.s.size} mês(es) com doação" onclick="$('q2').value=this.dataset.n;st.q2=this.dataset.n.toLowerCase();st.ex=1;draw()" data-n="${n}"><span>${n}</span><div class="trk"><div class="fl" style="width:${o.v/m3*100}%;background:var(--sal)"></div></div><b>${R(o.v)}</b></div>`).join('')||'<p class="sub">Sem registros no período.</p>';
+ $('cf').innerHTML=ms.map(i=>{const a=MB.filter(r=>r[0]===i).reduce((x,r)=>x+r[2],0),b=C['Doações / Aluguel'][1][i],d=a-b,has=MB.some(r=>r[0]===i);
+  return `<tr><td>${M[i][1]}</td><td class="r">${has?R(a):'<span class="na">sem lista</span>'}</td><td class="r">${R(b)}</td><td class="r ${!has?'na':Math.abs(d)<0.005?'pos':'neg'}">${has?(Math.abs(d)<0.005?'confere':R(d)):'—'}</td></tr>`}).join('');
+ const q2=st.q2||'',rm=mm.filter(r=>!q2||(st.ex?r[1].toLowerCase()===q2:r[1].toLowerCase().includes(q2))).sort((a,b)=>a[0]-b[0]);
+ $('cnt2').textContent=rm.length+' registros · '+R(rm.reduce((x,r)=>x+r[2],0));
+ $('tm').innerHTML=rm.map(r=>`<tr><td>${M[r[0]][1]}</td><td>${r[1]}</td><td class="r">${R(r[2])}</td></tr>`).join('');
+ // Tabela
+ const q=st.q,rows=f.filter(r=>!q||(r.c+' '+M[r.m][1]).toLowerCase().includes(q)).sort((a,b)=>{const A=st.sk==='m'?a.m:st.sk==='v'?(a.v??-1):a[st.sk],B=st.sk==='m'?b.m:st.sk==='v'?(b.v??-1):b[st.sk];return(A>B?1:A<B?-1:0)*st.sd});
+ $('cnt').textContent=rows.length+' lançamentos';
+ $('tb').innerHTML=rows.map(r=>`<tr><td>${M[r.m][1]}</td><td>${r.c}</td><td><span class="tag ${r.t[0]}">${r.t}</span></td><td class="r ${r.v==null?'na':''}">${r.v==null?'não informado':R(r.v)}</td></tr>`).join('');
+}
+draw();
+</script>
+</body>
+</html>
