@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Controle Financeiro · Out/2025 a Set/2026</title>
+<title>Controle Financeiro Templo Agaranto Guarulhos</title>
 <style>
 :root{--bg:#f3f5f8;--card:#fff;--ink:#16202e;--mut:#64708a;--line:#e2e7ef;--ent:#128f6a;--sai:#d9622b;--sal:#2f5fd0;--neg:#c23a3a;--chip:#e8edf6;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -51,7 +51,7 @@ td.r,th.r{text-align:right}
 <body>
 <main>
 <div class="top">
- <div><h1>Controle Financeiro</h1><p class="sub" id="per"></p></div>
+ <div><h1>Controle Financeiro Templo Agaranto Guarulhos</h1><p class="sub" id="per"></p></div>
  <p class="sub">Fonte: Controle_Financeiro.xlsx · valores em R$</p>
 </div>
 
@@ -90,18 +90,18 @@ td.r,th.r{text-align:right}
  </div>
  <div class="tw" style="max-height:420px;overflow-y:auto"><table><thead><tr><th>Mês</th><th>Membro</th><th class="r">Valor</th></tr></thead><tbody id="tm"></tbody></table></div>
 </div>
-<p class="sub" style="margin-top:12px">Células vazias na planilha (Cantina em Jun/26 e Set/26; Água, Luz e IPTU em Jun/26) aparecem como “não informado” e entram como zero nas somas. Na lista de membros, os nomes foram substituídos por iniciais (quando duas pessoas têm a mesma inicial, há um número: “J. #1”, “J. #2”). A soma da lista confere com “Doações / Aluguel” em todos os 12 meses. As linhas “Santo André” e “Cartão” de Out/25 e Nov/25 estão sem valores e não foram incluídas.</p>
+<p class="sub" style="margin-top:12px">Out/26 é um mês em andamento, e os valores podem mudar. Células vazias na planilha (Cantina em Jun/26 e Set/26; Água, Luz e IPTU em Jun/26) aparecem como “não informado” e entram como zero nas somas. Na lista de membros, os nomes foram substituídos por iniciais (quando duas pessoas têm a mesma inicial, há um número: “J. #1”, “J. #2”). A soma da lista confere com “Doações / Aluguel” em todos os 12 meses. As linhas “Santo André” e “Cartão” de Out/25 e Nov/25 estão sem valores e não foram incluídas.</p>
 </main>
 <div id="tip"></div>
 <script>
 // ===== DADOS (extraídos da planilha; para atualizar, edite estes blocos) =====
-const M=[['2025-10','Out/25'],['2025-11','Nov/25'],['2025-12','Dez/25'],['2026-01','Jan/26'],['2026-02','Fev/26'],['2026-03','Mar/26'],['2026-04','Abr/26'],['2026-05','Mai/26'],['2026-06','Jun/26'],['2026-07','Jul/26'],['2026-08','Ago/26'],['2026-09','Set/26']];
+const M=[['2025-10','Out/25'],['2025-11','Nov/25'],['2025-12','Dez/25'],['2026-01','Jan/26'],['2026-02','Fev/26'],['2026-03','Mar/26'],['2026-04','Abr/26'],['2026-05','Mai/26'],['2026-06','Jun/26'],['2026-07','Jul/26'],['2026-08','Ago/26'],['2026-09','Set/26'],['2026-10','Out/26']];
 const C={
- 'Cantina / Loja / Rifa':['Entrada',[679.35,533,150,810,100,76,185,212,null,857,814,null]],
- 'Doações / Aluguel':['Entrada',[698,770,1300,823.3,1105,835,1239,1240,960,870,839,1239]],
- 'Água, Luz e IPTU (Guarulhos)':['Saída',[148.16,95.2,81.08,103.32,162.22,192.78,146.01,194.93,null,176.54,163.65,146.14]],
- 'Aluguel (Guarulhos)':['Saída',[1169,1169,1169,1169,1169,1239,1239,1239,1239,1239,1239,1239]]};
-const MB=[[0,"J.V.",50],[0,"F.",50],[0,"J. #2",50],[0,"R.",50],[0,"I.",100],[0,"N. #2",70],[0,"E.",50],[0,"H.",80],[0,"L. #1",100],[0,"M. #4",20],[0,"D. #2",78],[1,"S. #2",100],[1,"J. #1",100],[1,"H.",80],[1,"F.A.",40],[1,"N. #2",100],[1,"J. #2",50],[1,"I.",100],[1,"D. #2",100],[1,"M. #5",100],[2,"I.",100],[2,"H.",80],[2,"N. #2",100],[2,"A.",70],[2,"R.M.",50],[2,"D. #2",100],[2,"J. #2",70],[2,"J. #1",100],[2,"P.",100],[2,"M. #5",100],[2,"S. #2",100],[2,"R.",50],[2,"S. #3",250],[2,"F.A.",30],[3,"N. #2",80],[3,"S. #3",150],[3,"I.",100],[3,"M. #2",40],[3,"R.",50],[3,"H.",80],[3,"S. #1",323.3],[4,"N. #2",75],[4,"V.",50],[4,"H.",70],[4,"I.",100],[4,"D. #2",100],[4,"L. #2",40],[4,"J. #2",30],[4,"M. #1",640],[5,"D. #2",100],[5,"V.",100],[5,"H.",80],[5,"R.",70],[5,"I.",100],[5,"N. #2",100],[5,"F.A.",20],[5,"S. #3",235],[5,"G.",30],[6,"V.",100],[6,"H.",70],[6,"N. #2",100],[6,"J. #2",50],[6,"E.",50],[6,"I.",100],[6,"R.",70],[6,"L. #1",60],[6,"M. #5",100],[6,"S. #2",100],[6,"J. #1",100],[6,"S. #3",239],[6,"D. #2",100],[7,"D. #2",100],[7,"V.",100],[7,"H.",70],[7,"N. #2",120],[7,"R.",50],[7,"I.",100],[7,"M. #5",100],[7,"J. #1",100],[7,"S. #2",100],[7,"L. #1",100],[7,"J. #2",50],[7,"S. #3",250],[8,"H.",70],[8,"N. #2",100],[8,"F.V.",30],[8,"N. #1",40],[8,"I.",100],[8,"F.A.",50],[8,"V.",100],[8,"S. #2",100],[8,"J. #1",100],[8,"R.",50],[8,"A.P.",100],[8,"J. #2",100],[8,"D. #1",20],[9,"A.P.",100],[9,"R.",50],[9,"J. #1",100],[9,"S. #2",100],[9,"I.",100],[9,"D. #2",100],[9,"N. #2",100],[9,"V.",150],[9,"H.",70],[10,"N. #2",100],[10,"I.",100],[10,"V.",100],[10,"H.",70],[10,"R.",69],[10,"J. #1",100],[10,"S. #2",100],[10,"S. #3",100],[10,"A.P.",100],[11,"R.",100],[11,"A.P.",100],[11,"H.",70],[11,"V.",150],[11,"N. #2",100],[11,"I.",100],[11,"J. #2",100],[11,"M. #5",100],[11,"J. #1",100],[11,"S. #2",100],[11,"P.",100],[11,"M. #3",119]];
+ 'Cantina / Loja / Rifa':['Entrada',[679.35,533,150,810,100,76,185,212,null,857,814,null,628.5]],
+ 'Doações / Aluguel':['Entrada',[698,770,1300,823.3,1105,835,1239,1240,960,870,839,1239,720]],
+ 'Água, Luz e IPTU (Guarulhos)':['Saída',[148.16,95.2,81.08,103.32,162.22,192.78,146.01,194.93,null,176.54,163.65,146.14,178.16]],
+ 'Aluguel (Guarulhos)':['Saída',[1169,1169,1169,1169,1169,1239,1239,1239,1239,1239,1239,1239,1239]]};
+const MB=[[0,"J.V.",50],[0,"F.",50],[0,"J. #2",50],[0,"R.",50],[0,"I.",100],[0,"N. #2",70],[0,"E.",50],[0,"H.",80],[0,"L. #1",100],[0,"M. #4",20],[0,"D. #2",78],[1,"S. #2",100],[1,"J. #1",100],[1,"H.",80],[1,"F.A.",40],[1,"N. #2",100],[1,"J. #2",50],[1,"I.",100],[1,"D. #2",100],[1,"M. #5",100],[2,"I.",100],[2,"H.",80],[2,"N. #2",100],[2,"A.",70],[2,"R.M.",50],[2,"D. #2",100],[2,"J. #2",70],[2,"J. #1",100],[2,"P.",100],[2,"M. #5",100],[2,"S. #2",100],[2,"R.",50],[2,"S. #3",250],[2,"F.A.",30],[3,"N. #2",80],[3,"S. #3",150],[3,"I.",100],[3,"M. #2",40],[3,"R.",50],[3,"H.",80],[3,"S. #1",323.3],[4,"N. #2",75],[4,"V.",50],[4,"H.",70],[4,"I.",100],[4,"D. #2",100],[4,"L. #2",40],[4,"J. #2",30],[4,"M. #1",640],[5,"D. #2",100],[5,"V.",100],[5,"H.",80],[5,"R.",70],[5,"I.",100],[5,"N. #2",100],[5,"F.A.",20],[5,"S. #3",235],[5,"G.",30],[6,"V.",100],[6,"H.",70],[6,"N. #2",100],[6,"J. #2",50],[6,"E.",50],[6,"I.",100],[6,"R.",70],[6,"L. #1",60],[6,"M. #5",100],[6,"S. #2",100],[6,"J. #1",100],[6,"S. #3",239],[6,"D. #2",100],[7,"D. #2",100],[7,"V.",100],[7,"H.",70],[7,"N. #2",120],[7,"R.",50],[7,"I.",100],[7,"M. #5",100],[7,"J. #1",100],[7,"S. #2",100],[7,"L. #1",100],[7,"J. #2",50],[7,"S. #3",250],[8,"H.",70],[8,"N. #2",100],[8,"F.V.",30],[8,"N. #1",40],[8,"I.",100],[8,"F.A.",50],[8,"V.",100],[8,"S. #2",100],[8,"J. #1",100],[8,"R.",50],[8,"A.P.",100],[8,"J. #2",100],[8,"D. #1",20],[9,"A.P.",100],[9,"R.",50],[9,"J. #1",100],[9,"S. #2",100],[9,"I.",100],[9,"D. #2",100],[9,"N. #2",100],[9,"V.",150],[9,"H.",70],[10,"N. #2",100],[10,"I.",100],[10,"V.",100],[10,"H.",70],[10,"R.",69],[10,"J. #1",100],[10,"S. #2",100],[10,"S. #3",100],[10,"A.P.",100],[11,"R.",100],[11,"A.P.",100],[11,"H.",70],[11,"V.",150],[11,"N. #2",100],[11,"I.",100],[11,"J. #2",100],[11,"M. #5",100],[11,"J. #1",100],[11,"S. #2",100],[11,"P.",100],[11,"M. #3",119],[12,"N. #2",100],[12,"H.",70],[12,"I.",100],[12,"V.",100],[12,"J. #1",100],[12,"S. #2",100],[12,"M. #5",100],[12,"J. #2",50]];
 // ============================================================================
 const D=[];Object.entries(C).forEach(([c,[t,v]])=>v.forEach((x,i)=>D.push({m:i,c,t,v:x})));
 const st={sel:new Set(),cat:'',tp:'',q:'',q2:'',sk:'m',sd:1};
@@ -128,7 +128,7 @@ document.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k
 function draw(){
  const f=F(),ms=act();
  document.querySelectorAll('.chip').forEach((b,i)=>b.classList.toggle('on',st.sel.has(i)));
- $('per').textContent=(st.sel.size?M[ms[0]][1]+' a '+M[ms[ms.length-1]][1]:'Out/25 a Set/26')+' · '+ms.length+(ms.length>1?' meses':' mês');
+ $('per').textContent=(st.sel.size?M[ms[0]][1]+' a '+M[ms[ms.length-1]][1]:'Out/25 a Out/26')+' · '+ms.length+(ms.length>1?' meses':' mês');
  // KPIs
  const e=sum(f,'Entrada'),s=sum(f,'Saída'),sd=e-s;
  const def=ms.filter(i=>{const g=f.filter(r=>r.m===i);return sum(g,'Entrada')-sum(g,'Saída')<0}).length;
